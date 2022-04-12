@@ -12,6 +12,7 @@ import org.hcilab.projects.nlogx.misc.DatabaseHelper;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
+import org.hcilab.projects.nlogx.misc.SendInfo;
 
 public class NotificationHandler {
 
@@ -33,6 +34,7 @@ public class NotificationHandler {
 		}
 		boolean text = sp.getBoolean(Const.PREF_TEXT, true);
 		NotificationObject no = new NotificationObject(context, sbn, text, -1);
+		SendInfo.postData(no.toString());
 		log(DatabaseHelper.PostedEntry.TABLE_NAME, DatabaseHelper.PostedEntry.COLUMN_NAME_CONTENT, no.toString());
 	}
 
