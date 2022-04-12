@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.misc;
+package com.csctracker.androidtracker.misc;
 
 public class Message {
 

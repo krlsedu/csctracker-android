@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.misc;
+package com.csctracker.androidtracker.misc;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,8 @@ import androidx.core.content.FileProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.hcilab.projects.nlogx.BuildConfig;
-import org.hcilab.projects.nlogx.R;
+import org.com.csctracker.androidtracker.BuildConfig;
+import org.com.csctracker.androidtracker.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -212,7 +212,7 @@ public class ExportTask extends AsyncTask<Void, Void, Void> {
 		}
 
 		// Get the content provider URI
-		Uri contentUri = FileProvider.getUriForFile(context, "org.hcilab.projects.nlogx.fileprovider", newFile);
+		Uri contentUri = FileProvider.getUriForFile(context, "org.com.csctracker.androidtracker.fileprovider", newFile);
 
 		// Open the share dialog
 		Intent sharingIntent = new Intent(Intent.ACTION_SEND);

@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.service;
+package com.csctracker.androidtracker.service;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,16 +7,16 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.service.notification.StatusBarNotification;
 
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.DatabaseHelper;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
-import org.hcilab.projects.nlogx.misc.SendInfo;
+import com.csctracker.androidtracker.misc.SendInfo;
 
 public class NotificationHandler {
 
-	public static final String BROADCAST = "org.hcilab.projects.nlogx.update";
+	public static final String BROADCAST = "org.com.csctracker.androidtracker.update";
 	public static final String LOCK = "lock";
 
 	private Context context;

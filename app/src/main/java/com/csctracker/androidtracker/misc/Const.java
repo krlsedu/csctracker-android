@@ -1,6 +1,6 @@
-package org.hcilab.projects.nlogx.misc;
+package com.csctracker.androidtracker.misc;
 
-import org.hcilab.projects.nlogx.BuildConfig;
+import org.com.csctracker.androidtracker.BuildConfig;
 
 public class Const {
 

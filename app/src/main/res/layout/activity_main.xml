@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context="com.csctracker.androidtracker.ui.MainActivity">
 
     <fragment
-        android:name="org.hcilab.projects.nlogx.ui.SettingsFragment"
+        android:name="com.csctracker.androidtracker.ui.SettingsFragment"
         android:tag=".ui.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

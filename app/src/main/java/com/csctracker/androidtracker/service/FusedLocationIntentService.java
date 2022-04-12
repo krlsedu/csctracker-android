@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.service;
+package com.csctracker.androidtracker.service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.location.LocationResult;
 
-import org.hcilab.projects.nlogx.misc.Const;
+import com.csctracker.androidtracker.misc.Const;
 import org.json.JSONException;
 import org.json.JSONObject;
 

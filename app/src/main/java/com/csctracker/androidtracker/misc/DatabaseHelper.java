@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.misc;
+package com.csctracker.androidtracker.misc;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

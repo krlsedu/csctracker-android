@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.ui;
+package com.csctracker.androidtracker.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,10 +24,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import org.hcilab.projects.nlogx.R;
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.DatabaseHelper;
-import org.hcilab.projects.nlogx.misc.Util;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
+import com.csctracker.androidtracker.misc.Util;
+import org.com.csctracker.androidtracker.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 

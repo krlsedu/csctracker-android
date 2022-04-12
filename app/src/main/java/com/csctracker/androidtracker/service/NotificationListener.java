@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.service;
+package com.csctracker.androidtracker.service;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -17,8 +17,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.Util;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.Util;
 
 public class NotificationListener extends NotificationListenerService {
 

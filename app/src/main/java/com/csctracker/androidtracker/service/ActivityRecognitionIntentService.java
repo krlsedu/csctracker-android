@@ -1,14 +1,14 @@
-package org.hcilab.projects.nlogx.service;
+package com.csctracker.androidtracker.service;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.csctracker.androidtracker.misc.Const;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
-import org.hcilab.projects.nlogx.misc.Const;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

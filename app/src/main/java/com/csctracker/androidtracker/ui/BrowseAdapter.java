@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.ui;
+package com.csctracker.androidtracker.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,10 +17,10 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.hcilab.projects.nlogx.R;
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.DatabaseHelper;
-import org.hcilab.projects.nlogx.misc.Util;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.Util;
+import org.com.csctracker.androidtracker.R;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 

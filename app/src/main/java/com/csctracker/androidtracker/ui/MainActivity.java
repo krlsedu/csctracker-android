@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.ui;
+package com.csctracker.androidtracker.ui;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,11 +11,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import org.hcilab.projects.nlogx.R;
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.DatabaseHelper;
-import org.hcilab.projects.nlogx.misc.ExportTask;
-import org.hcilab.projects.nlogx.service.NotificationHandler;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
+import com.csctracker.androidtracker.misc.ExportTask;
+import com.csctracker.androidtracker.service.NotificationHandler;
+import com.csctracker.androidtracker.service.monitor.Core;
+import org.com.csctracker.androidtracker.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Core core = new Core(this);
+		core.start();
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.ui;
+package com.csctracker.androidtracker.ui;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,17 +9,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.provider.Settings;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
-import org.hcilab.projects.nlogx.BuildConfig;
-import org.hcilab.projects.nlogx.R;
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.DatabaseHelper;
-import org.hcilab.projects.nlogx.misc.Util;
-import org.hcilab.projects.nlogx.service.NotificationHandler;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
+import com.csctracker.androidtracker.misc.Util;
+import com.csctracker.androidtracker.service.NotificationHandler;
+import org.com.csctracker.androidtracker.BuildConfig;
+import org.com.csctracker.androidtracker.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -43,6 +44,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 		if(prefStatus != null) {
 			prefStatus.setOnPreferenceClickListener(preference -> {
 				startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
+				startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 				return true;
 			});
 		}

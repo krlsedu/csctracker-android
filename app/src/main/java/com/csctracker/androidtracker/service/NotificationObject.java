@@ -1,4 +1,4 @@
-package org.hcilab.projects.nlogx.service;
+package com.csctracker.androidtracker.service;
 
 import android.app.Notification;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
 
-import org.hcilab.projects.nlogx.BuildConfig;
-import org.hcilab.projects.nlogx.misc.Const;
-import org.hcilab.projects.nlogx.misc.Util;
+import org.com.csctracker.androidtracker.BuildConfig;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.Util;
 import org.json.JSONObject;
 
 import java.util.Arrays;
