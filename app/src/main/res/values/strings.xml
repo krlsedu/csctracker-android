@@ -46,6 +46,14 @@
     <string name="dialog_delete_yes">Delete</string>
     <string name="dialog_delete_no">Cancel</string>
 
+    <!-- Token -->
+    <string name="settings_token">Token</string>
+    <string name="settings_token_summary">CscTracker api token.</string>
+
+    <!-- url -->
+    <string name="settings_url">Url CscTracker</string>
+    <string name="settings_url_summary">CscTracker base url.</string>
+
     <!-- About -->
     <string name="settings_about">About</string>
     <string name="settings_about_summary">Notification Log on GitHub. Licensed under the MIT License.</string>

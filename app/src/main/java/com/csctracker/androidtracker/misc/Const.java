@@ -18,6 +18,8 @@ public class Const {
 	public static final String PREF_ONGOING = "pref_ongoing";
 	public static final String PREF_ABOUT   = "pref_about";
 	public static final String PREF_VERSION = "pref_version";
+	public static final String PREF_TOKEN = "pref_token";
+	public static final String PREF_URL = "pref_url";
 
 	// Preferences not shown in the UI
 	public static final String PREF_LAST_ACTIVITY  = "pref_last_activity";

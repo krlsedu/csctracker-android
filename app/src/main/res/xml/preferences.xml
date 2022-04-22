@@ -29,11 +29,25 @@
         android:defaultValue="false"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.EditTextPreference
+            android:key="pref_url"
+            android:persistent="true"
+            android:title="@string/settings_url"
+            android:summary="@string/settings_url_summary"
+            app:iconSpaceReserved="false"/>
+
+    <androidx.preference.EditTextPreference
+            android:key="pref_token"
+            android:persistent="true"
+            android:title="@string/settings_token"
+            android:summary="@string/settings_token_summary"
+            app:iconSpaceReserved="false"/>
+
     <androidx.preference.Preference
-        android:key="pref_about"
-        android:title="@string/settings_about"
-        android:summary="@string/settings_about_summary"
-        app:iconSpaceReserved="false" />
+            android:key="pref_about"
+            android:title="@string/settings_about"
+            android:summary="@string/settings_about_summary"
+            app:iconSpaceReserved="false" />
 
     <androidx.preference.Preference
         android:key="pref_version"

@@ -33,6 +33,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 	private Preference prefBrowse;
 	private Preference prefText;
 	private Preference prefOngoing;
+	private Preference prefToken;
 
 	@Override
 	public void onCreatePreferences(Bundle bundle, String s) {
@@ -59,6 +60,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 		prefText    = pm.findPreference(Const.PREF_TEXT);
 		prefOngoing = pm.findPreference(Const.PREF_ONGOING);
+		prefToken = pm.findPreference(Const.PREF_TOKEN);
 
 		Preference prefAbout = pm.findPreference(Const.PREF_ABOUT);
 		if(prefAbout != null) {

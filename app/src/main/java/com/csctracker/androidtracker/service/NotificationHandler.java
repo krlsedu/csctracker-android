@@ -21,9 +21,11 @@ public class NotificationHandler {
 
 	private Context context;
 	private SharedPreferences sp;
+	private SendInfo sendInfo;
 
 	NotificationHandler(Context context) {
 		this.context = context;
+		this.sendInfo = new SendInfo(context);
 		sp = PreferenceManager.getDefaultSharedPreferences(context);
 	}
 
@@ -34,7 +36,7 @@ public class NotificationHandler {
 		}
 		boolean text = sp.getBoolean(Const.PREF_TEXT, true);
 		NotificationObject no = new NotificationObject(context, sbn, text, -1);
-		SendInfo.postData(no.toString());
+		sendInfo.postData(no.toString());
 		log(DatabaseHelper.PostedEntry.TABLE_NAME, DatabaseHelper.PostedEntry.COLUMN_NAME_CONTENT, no.toString());
 	}
 

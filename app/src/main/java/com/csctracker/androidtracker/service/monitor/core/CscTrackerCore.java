@@ -2,14 +2,11 @@ package com.csctracker.androidtracker.service.monitor.core;
 
 import android.content.Context;
 import android.util.Log;
+import com.csctracker.androidtracker.misc.SendInfo;
 import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
+import com.csctracker.androidtracker.service.monitor.core.model.Erro;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +21,23 @@ public class CscTrackerCore {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static final ScheduledExecutorService schedulerErrors = Executors.newScheduledThreadPool(1);
     private static final ConcurrentLinkedQueue<ApplicationDetail> heartbeatsQueue = new ConcurrentLinkedQueue<>();
-    private static final ConcurrentLinkedQueue<String> resincErrors = new ConcurrentLinkedQueue<>();
+    private static final ConcurrentLinkedQueue<Erro> resincErrors = new ConcurrentLinkedQueue<>();
     private static boolean debug = false;
+
+    private static boolean running = false;
     private static ObjectMapper objectMapper = null;
     private static ScheduledFuture<?> scheduledFixture;
     private static ScheduledFuture<?> scheduledFixtureErrors;
 
     private static SqlLitle sqlLitle;
+    private static SendInfo sendInfo;
 
     private CscTrackerCore() {
     }
 
     public static void init(Context context) {
         sqlLitle = new SqlLitle(context);
+        sendInfo = new SendInfo(context);
         setupQueueProcessor();
         setupQueueProcessorErrors();
     }
@@ -68,11 +69,11 @@ public class CscTrackerCore {
         }
 
         while (true) {
-            String jsonString = resincErrors.poll();
-            if (jsonString == null) {
+            Erro erro = resincErrors.poll();
+            if (erro == null) {
                 return;
             }
-            send(jsonString);
+            sendErro(erro);
         }
     }
 
@@ -99,7 +100,7 @@ public class CscTrackerCore {
             send(jsonString);
         } catch (Exception e) {
             try {
-                sqlLitle.salva(jsonString);
+                sqlLitle.salva(jsonString, "usage-info");
             } catch (Exception ex) {
                 Log.w("ex", ex);
             }
@@ -108,17 +109,12 @@ public class CscTrackerCore {
     }
 
     private static void send(String jsonString) {
-        try {
-            System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
-            postData(jsonString);
-        } catch (Exception e) {
-            try {
-                sqlLitle.salva(jsonString);
-            } catch (Exception ex) {
-                Log.w("ex", ex);
-            }
-            Log.w("ex", e);
-        }
+        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
+        postData(jsonString);
+    }
+
+    private static void sendErro(Erro erro) {
+        postData(erro.getJson(), erro.getEndpoint());
     }
 
     public static void appendApplicationDetail(final ApplicationDetail applicationDetail) {
@@ -141,42 +137,14 @@ public class CscTrackerCore {
     }
 
     private static void postData(String json) {
-        HttpURLConnection connection = null;
+        postData(json, "usage-info");
+    }
+
+    private static void postData(String json, String endpoint) {
         try {
-
-            URL url = new URL("https://tracker.csctracker.com/usage-info");
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestMethod("POST"); // hear you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
-            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
-            connection.connect();
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8));
-            bw.write(json); // I dunno how to write this string..
-            bw.flush();
-            bw.close();
-
-            int response = connection.getResponseCode();
-            if (response != 201) {
-                try {
-                    sqlLitle.salva(json);
-                } catch (Exception e) {
-                    //
-                }
-            }
-
-
+            sendInfo.send(json, endpoint);
         } catch (Exception e) {
-
-            e.printStackTrace();
-            //return false;
-
-        } finally {
-
-            if (connection != null) {
-                connection.disconnect();
-            }
+            sqlLitle.salva(json, endpoint);
         }
-
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class Core {
 
     private static final int WAIT_TIME = 20000;
-    private static boolean ativo = true;
+    private static boolean ativo = false;
 
     private final MainActivity mainActivity;
 
@@ -51,9 +51,11 @@ public class Core {
     }
 
     public void start() {
-        ativate();
-        CscTrackerCore.init(mainActivity.getApplicationContext());
-        new Thread(this::tracker).start();
+        if (!isAtivo()) {
+            ativate();
+            CscTrackerCore.init(mainActivity.getApplicationContext());
+            new Thread(this::tracker).start();
+        }
     }
 
     private void tracker() {
