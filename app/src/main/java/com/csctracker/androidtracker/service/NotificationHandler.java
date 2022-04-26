@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.service.notification.StatusBarNotification;
-
-import com.csctracker.androidtracker.misc.Const;
-import com.csctracker.androidtracker.misc.DatabaseHelper;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
+import com.csctracker.androidtracker.misc.Const;
+import com.csctracker.androidtracker.misc.DatabaseHelper;
 import com.csctracker.androidtracker.misc.SendInfo;
 
 public class NotificationHandler {
@@ -36,7 +34,7 @@ public class NotificationHandler {
 		}
 		boolean text = sp.getBoolean(Const.PREF_TEXT, true);
 		NotificationObject no = new NotificationObject(context, sbn, text, -1);
-		sendInfo.postData(no.toString());
+		sendInfo.send(no.toString(), "message");
 		log(DatabaseHelper.PostedEntry.TABLE_NAME, DatabaseHelper.PostedEntry.COLUMN_NAME_CONTENT, no.toString());
 	}
 

@@ -13,14 +13,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class SendInfo {
-
-
-    private Context context;
-    private SharedPreferences preferences;
+    private final SharedPreferences preferences;
     private static SqlLitle sqlLitle;
 
     public SendInfo(Context context) {
-        this.context = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         sqlLitle = new SqlLitle(context);
     }
@@ -30,10 +26,11 @@ public class SendInfo {
             HttpURLConnection connection = null;
             try {
                 Message message = new Message(json);
-                URL url = new URL("https://notify.csctracker.com/info");
+                URL url = new URL("https://notify.csctracker.com/message");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
-                connection.setRequestMethod("POST"); // hear you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Authorization", "Bearer " + preferences.getString(Const.PREF_TOKEN, ""));
                 connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
                 connection.connect();
 
@@ -58,14 +55,15 @@ public class SendInfo {
     }
 
     public void send(String json, String endpoint) {
-        if ("info".equals(endpoint)) {
+
+        String uri;
+        if ("message".equals(endpoint)) {
             postData(json);
         } else {
+            uri = preferences.getString(Const.PREF_URL, "https://backend.csctracker.com/") + endpoint;
 
             HttpURLConnection connection = null;
             try {
-
-                String uri = preferences.getString(Const.PREF_URL, "https://backend.csctracker.com/") + endpoint;
                 URL url = new URL(uri);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);
@@ -87,15 +85,9 @@ public class SendInfo {
                         //
                     }
                 }
-
-
             } catch (Exception e) {
-
                 e.printStackTrace();
-                //return false;
-
             } finally {
-
                 if (connection != null) {
                     connection.disconnect();
                 }
@@ -103,3 +95,4 @@ public class SendInfo {
         }
     }
 }
+
