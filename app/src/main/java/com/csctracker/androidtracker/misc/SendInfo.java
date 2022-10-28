@@ -12,14 +12,19 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 public class SendInfo {
     private final SharedPreferences preferences;
     private static SqlLitle sqlLitle;
+    private Date date = new Date(new Date().getTime() - 5 * 60 * 1000);
+
+    private Context context;
 
     public SendInfo(Context context) {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         sqlLitle = new SqlLitle(context);
+        this.context = context;
     }
 
     public void send(String json, String endpoint) {
@@ -34,9 +39,9 @@ public class SendInfo {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                uri = "https://notify.csctracker.com/message";
+                uri = preferences.getString(Const.PREF_URL, "https://bff.csctracker.com/") + "notify-sync/" + endpoint;
             } else {
-                uri = preferences.getString(Const.PREF_URL, "https://backend.csctracker.com/") + endpoint;
+                uri = preferences.getString(Const.PREF_URL, "https://bff.csctracker.com/") + "backend/" + endpoint;
             }
             HttpURLConnection connection = null;
             try {
@@ -54,7 +59,7 @@ public class SendInfo {
                 bw.close();
 
                 int response = connection.getResponseCode();
-                if (response != 201) {
+                if (response < 200 || response > 299) {
                     try {
                         sqlLitle.salva(jsonSend, endpoint);
                     } catch (Exception e) {

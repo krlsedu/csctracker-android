@@ -8,13 +8,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.Settings;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
-
 import com.csctracker.androidtracker.misc.Const;
 import com.csctracker.androidtracker.misc.DatabaseHelper;
 import com.csctracker.androidtracker.misc.Util;

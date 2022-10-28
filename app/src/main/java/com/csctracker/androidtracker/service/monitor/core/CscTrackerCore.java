@@ -3,8 +3,10 @@ package com.csctracker.androidtracker.service.monitor.core;
 import android.content.Context;
 import android.util.Log;
 import com.csctracker.androidtracker.misc.SendInfo;
+import com.csctracker.androidtracker.service.monitor.MonitorNotification;
 import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 import com.csctracker.androidtracker.service.monitor.core.model.Erro;
+import com.csctracker.androidtracker.ui.MainActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.sql.SQLException;
@@ -31,13 +33,16 @@ public class CscTrackerCore {
 
     private static SqlLitle sqlLitle;
     private static SendInfo sendInfo;
+    private static MonitorNotification monitorNotification;
 
     private CscTrackerCore() {
     }
 
-    public static void init(Context context) {
+    public static void init(Context context, MainActivity mainActivity) {
         sqlLitle = new SqlLitle(context);
         sendInfo = new SendInfo(context);
+        monitorNotification = new MonitorNotification(context, mainActivity);
+        monitorNotification.start();
         setupQueueProcessor();
         setupQueueProcessorErrors();
     }
@@ -94,6 +99,7 @@ public class CscTrackerCore {
     }
 
     public static void send(List<ApplicationDetail> heartbeats) {
+
         String jsonString = null;
         try {
             jsonString = getObjectMapper().writeValueAsString(heartbeats);

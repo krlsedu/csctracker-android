@@ -1,9 +1,10 @@
 package com.csctracker.androidtracker.service.monitor;
 
+import android.content.Context;
 import android.util.Log;
 import com.csctracker.androidtracker.service.monitor.core.CscTrackerCore;
-import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 import com.csctracker.androidtracker.service.monitor.core.SqlLitle;
+import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 import com.csctracker.androidtracker.ui.MainActivity;
 
 import java.util.List;
@@ -13,14 +14,17 @@ public class Core {
     private static final int WAIT_TIME = 20000;
     private static boolean ativo = false;
 
-    private final MainActivity mainActivity;
+    private final Context context;
 
     private final Monitor monitor;
 
     private final SqlLitle sqlLitle;
 
-    public Core(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    private MainActivity mainActivity;
+
+    public Core(Context mainActivity, MainActivity mainActivity1) {
+        this.context = mainActivity;
+        this.mainActivity = mainActivity1;
         monitor = new Monitor(mainActivity.getApplicationContext());
         sqlLitle = new SqlLitle(mainActivity.getApplicationContext());
     }
@@ -53,7 +57,7 @@ public class Core {
     public void start() {
         if (!isAtivo()) {
             ativate();
-            CscTrackerCore.init(mainActivity.getApplicationContext());
+            CscTrackerCore.init(context, mainActivity);
             new Thread(this::tracker).start();
         }
     }
