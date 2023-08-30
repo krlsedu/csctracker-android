@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import com.csctracker.androidtracker.misc.Const;
 import com.csctracker.androidtracker.ui.MainActivity;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -25,7 +26,6 @@ public class MonitorNotification {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.mainActivity = mainActivity;
     }
-
 
     public void start() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS 00:00");
@@ -57,7 +57,7 @@ public class MonitorNotification {
                         List<OutputMessage> outputMessages = new ObjectMapper().readValue(rb.toString(), new ObjectMapper().getTypeFactory().constructCollectionType(List.class, OutputMessage.class));
 
                         for (OutputMessage outputMessage : outputMessages) {
-                            if ("VD-DUQFULL0312".equals(outputMessage.getMachine())) {
+                            if ("VD-DUQFULL0312".equals(outputMessage.getMachine()) || outputMessage.isForce()) {
                                 String title = "Notification incoming from " + outputMessage.getApp();
                                 String text = outputMessage.getFrom() + ": " + outputMessage.getText() + " (" + outputMessage.getTime() + ")";
                                 mainActivity.sendNotification(title, text);
@@ -74,5 +74,21 @@ public class MonitorNotification {
             } while (true);
         });
         thread.start();
+    }
+
+    public void notify(String text) {
+
+        OutputMessage outputMessage = null;
+        try {
+            outputMessage = new ObjectMapper().readValue(text, OutputMessage.class);
+            if ("VD-DUQFULL0312".equals(outputMessage.getMachine()) || outputMessage.isForce()) {
+                String title = "Notification incoming from " + outputMessage.getApp();
+                String msg = outputMessage.getFrom() + ": " + outputMessage.getText() + " (" + outputMessage.getTime() + ")";
+                mainActivity.sendNotification(title, msg);
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

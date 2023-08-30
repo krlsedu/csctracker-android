@@ -8,8 +8,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
-import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 import com.csctracker.androidtracker.service.monitor.core.SqlLitle;
+import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -58,7 +58,7 @@ public class Monitor {
                         lastEvt = eventAtu;
                     }
                 } else {
-                    if (eventAtu.getEventType() == UsageEvents.Event.SCREEN_NON_INTERACTIVE && eventAnt != null) {
+                    if ((eventAtu.getEventType() == UsageEvents.Event.MOVE_TO_BACKGROUND || eventAtu.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND) && eventAnt != null) {
                         ApplicationDetail applicationDetail = getApplicationDetail(eventAnt, eventAtu);
                         applicationDetailArrayList.add(applicationDetail);
                         lastEvt = eventAnt;
@@ -76,6 +76,7 @@ public class Monitor {
                 //
             }
         }
+        sqlLitle.salvaLastSync(fim);
 
         return applicationDetailArrayList;
     }

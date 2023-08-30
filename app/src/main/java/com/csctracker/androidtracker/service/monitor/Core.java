@@ -66,14 +66,24 @@ public class Core {
         if (CscTrackerCore.isDebug()) {
             Log.i("Initiated", "Initiated");
         }
+//        try {
+//            sqlLitle.limpaSync();
+//        } catch (SQLException e) {
+//            System.out.println("Erro ao limpar sync: " + e.getMessage());
+//        }
         do {
             try {
                 Thread.sleep(WAIT_TIME);
                 Long ini = sqlLitle.getLastSync();
+//                ini = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-03-26 23:15:00").getTime();
+//                long fim = ini + (1000 * 60 * 60 * 24);
                 long fim = System.currentTimeMillis();
+//                fim = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-03-27 10:53:00").getTime();
                 if (ini == null || ini == 0) {
+//                    fim = ini + (1000 * 60 * 60 * 24);
                     ini = fim - (1000 * 60 * 60 * 4);
                 }
+//                System.out.println("fim: " + new Date(fim));
                 List<ApplicationDetail> applicationDetailList = monitor.monitora(ini, fim);
 
                 if (applicationDetailList != null && !applicationDetailList.isEmpty()) {

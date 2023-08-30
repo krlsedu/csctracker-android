@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import com.csctracker.androidtracker.misc.SendInfo;
 import com.csctracker.androidtracker.service.monitor.MonitorNotification;
+import com.csctracker.androidtracker.service.monitor.RabbitListener;
 import com.csctracker.androidtracker.service.monitor.core.model.ApplicationDetail;
 import com.csctracker.androidtracker.service.monitor.core.model.Erro;
 import com.csctracker.androidtracker.ui.MainActivity;
@@ -35,6 +36,8 @@ public class CscTrackerCore {
     private static SendInfo sendInfo;
     private static MonitorNotification monitorNotification;
 
+    private static RabbitListener rabbitListener;
+
     private CscTrackerCore() {
     }
 
@@ -42,7 +45,8 @@ public class CscTrackerCore {
         sqlLitle = new SqlLitle(context);
         sendInfo = new SendInfo(context);
         monitorNotification = new MonitorNotification(context, mainActivity);
-        monitorNotification.start();
+        rabbitListener = new RabbitListener();
+        rabbitListener.init(monitorNotification);
         setupQueueProcessor();
         setupQueueProcessorErrors();
     }

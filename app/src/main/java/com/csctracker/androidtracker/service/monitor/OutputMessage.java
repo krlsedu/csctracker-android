@@ -22,5 +22,6 @@ public class OutputMessage {
     private String operation;
     private String data;
     private String machine;
+    private boolean force;
     private Date dateSynced;
 }

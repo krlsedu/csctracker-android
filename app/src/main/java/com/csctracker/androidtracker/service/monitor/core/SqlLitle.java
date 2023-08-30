@@ -71,6 +71,11 @@ public class SqlLitle extends SQLiteOpenHelper {
         db.execSQL("delete from error");
     }
 
+    public void limpaSync() throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("delete from last_sync");
+    }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE error( json text, endpoint text)");
